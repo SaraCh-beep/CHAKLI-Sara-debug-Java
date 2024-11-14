@@ -7,41 +7,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Simple brute force implementation
- *
+ * Implémentation de ISymptomReader pour lire les symptômes depuis un fichier.
  */
 public class ReadSymptomDataFromFile implements ISymptomReader {
+    private String inputFilePath;
 
-	private String filepath;
-	
-	/**
-	 * 
-	 * @param filepath a full or partial path to file with symptom strings in it, one per line
-	 */
-	public ReadSymptomDataFromFile (String filepath) {
-		this.filepath = filepath;
-	}
-	
-	@Override
-	public List<String> GetSymptoms() {
-		ArrayList<String> result = new ArrayList<String>();
-		
-		if (filepath != null) {
-			try {
-				BufferedReader reader = new BufferedReader (new FileReader(filepath));
-				String line = reader.readLine();
-				
-				while (line != null) {
-					result.add(line);
-					line = reader.readLine();
-				}
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return result;
-	}
+    /**
+     * Constructeur prenant le chemin du fichier d'entrée.
+     * 
+     * @param inputFilePath le chemin du fichier contenant les symptômes
+     */
+    public ReadSymptomDataFromFile(String inputFilePath) {
+        this.inputFilePath = inputFilePath;
+    }
 
+    /**
+     * Lit les symptômes depuis le fichier et les renvoie sous forme de liste.
+     * 
+     * @return une liste de symptômes lus depuis le fichier
+     * @throws IOException si une erreur se produit lors de la lecture du fichier
+     */
+    @Override
+    public List<String> getSymptoms() throws IOException {
+        List<String> symptoms = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                symptoms.add(line);
+            }
+        }
+        return symptoms;
+    }
 }

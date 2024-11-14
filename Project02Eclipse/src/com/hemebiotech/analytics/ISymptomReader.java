@@ -1,20 +1,17 @@
 package com.hemebiotech.analytics;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
- * Anything that will read symptom data from a source
- * The important part is, the return value from the operation, which is a list of strings,
- * that may contain many duplications
- * 
- * The implementation does not need to order the list
- * 
+ * Interface pour la lecture des symptômes depuis une source d'entrée.
  */
 public interface ISymptomReader {
-	/**
-	 * If no data is available, return an empty List
-	 * 
-	 * @return a raw listing of all Symptoms obtained from a data source, duplicates are possible/probable
-	 */
-	List<String> GetSymptoms ();
+    /**
+     * Lit les symptômes depuis une source d'entrée.
+     * 
+     * @return une liste contenant les symptômes lus
+     * @throws IOException si une erreur se produit lors de la lecture
+     */
+    List<String> getSymptoms() throws IOException;
 }
